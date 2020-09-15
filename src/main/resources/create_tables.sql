@@ -1,0 +1,5 @@
+CREATE TABLE FOO(
+    foo_id INTEGER NOT NULL PRIMARY KEY,
+    bar_id INTEGER NULL,
+    foo_child_id INTEGER NULL
+)ENGINE=InnoDB;

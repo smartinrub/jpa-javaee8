@@ -1,0 +1,22 @@
+<persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.2"
+             xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd">
+    <persistence-unit name="DefaultPersistenceUnit" transaction-type="JTA">
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+        <jta-data-source>jdbc/jpa_example</jta-data-source>
+        <class>com.sergiomartinrubio.ejb.javaee8.persistence.entity.FooChild</class>
+        <class>com.sergiomartinrubio.ejb.javaee8.persistence.entity.Foo</class>
+        <class>com.sergiomartinrubio.ejb.javaee8.persistence.entity.Bar</class>
+        <class>com.sergiomartinrubio.ejb.javaee8.persistence.entity.ParentEntity</class>
+        <properties>
+<!--            <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />-->
+<!--            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/jpa_example" />-->
+<!--            <property name="javax.persistence.jdbc.user" value="sergio" />-->
+<!--            <property name="javax.persistence.jdbc.password" value="password" />-->
+<!--            <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect"/>-->
+            <!--            <property name="hibernate.hbm2ddl.auto" value="create-drop" />-->
+            <property name="show_sql" value="true"/>
+<!--            <property name="javax.persistence.sql-load-script-source" value="create_tables.sql"/>-->
+        </properties>
+    </persistence-unit>
+</persistence>
