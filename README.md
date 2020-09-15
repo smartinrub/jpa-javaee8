@@ -56,17 +56,6 @@ The Java EE application will be deployed in a web server like Glassfish, Payara 
 
 8. Deploy Java EE application: go to Applications>Deploy... and choose the file 
   `jpa-javaee8/target/jpa-javaee8.war` to deploy the Java EE application.
- 
- >Glassfish version 5.1.0 has a bug in the deployment form (GUI internal error: Archive Path is NULL). 
- >The fix is either modifying the html in the browser or 
- >opening `/usr/local/Cellar/glassfish/5.1.0/libexec/glassfish/modules/console-common.jar` and
- > replace `<sun:form id="form">` with `<sun:form id="form" enctype="multipart/form-data">` in `applications/uploadFrame.jsf`.
-
- ```
- vi console-common.jar
- applications/uploadFrame.jsf
- ```
-
 9. Go to the `jpa-javaee8` configuration and change the context root to `/jpa-javaee8`.
 10. Access API:
 ```
