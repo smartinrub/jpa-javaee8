@@ -8,24 +8,19 @@ import lombok.ToString;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "BAR_CHILD")
 @Getter
 @Setter
-@EqualsAndHashCode
 @ToString
+@EqualsAndHashCode
+@Table(name = "BAR_CHILD")
 public class BarChild {
 
     @Id
     @GeneratedValue
-    @Column(name = "bar_child_id")
+    @Column(name = "id")
     private Integer id;
 
-
-    // fetch strategy is eager by default
-    @OneToOne(
-            mappedBy = "barChild",
-            cascade = CascadeType.ALL,
-            fetch = FetchType.LAZY
-    )
+    @OneToOne(mappedBy = "barChild")
     private Bar bar;
+
 }

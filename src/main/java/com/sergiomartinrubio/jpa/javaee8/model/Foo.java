@@ -7,25 +7,30 @@ import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
-@Table(name = "FOO")
-@NamedQuery(name = "Foo.findAll", query = "SELECT f FROM Foo f")
 @Getter
 @Setter
-@EqualsAndHashCode
 @ToString
+@EqualsAndHashCode
+@Table(name = "FOO")
+@NamedQuery(name = "Foo.findAll", query = "SELECT f FROM Foo f")
 public class Foo {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "foo_id")
+    @Column(name = "id")
     private Integer id;
 
-    @ManyToOne
-    @JoinColumn(name = "bar_id", referencedColumnName = "bar_id")
-    private Bar bar;
+//    @ManyToOne
+//    @JoinColumn(name = "bar_id", nullable = false)
+//    private Bar bar;
 
-    @ManyToMany(mappedBy = "foos")
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "foo_child",
+            joinColumns = @JoinColumn(name = "id"),
+            inverseJoinColumns = @JoinColumn(name = "foo_id"))
     private List<FooChild> fooChildren;
+
 }

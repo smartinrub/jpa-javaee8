@@ -20,7 +20,7 @@ public class JpaClient extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {
         Foo foo = new Foo();
         foo.setId(1);
-        fooRepository.save(foo);
+//        fooRepository.save(foo);
 
         try (PrintWriter out = response.getWriter()) {
             out.println("Foos:" + fooRepository.findAll());

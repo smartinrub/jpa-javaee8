@@ -6,28 +6,30 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
-import java.util.Set;
+import java.util.List;
+import java.util.Objects;
 
 @Entity
-@Table(name = "BAR")
 @Getter
 @Setter
-@EqualsAndHashCode
 @ToString
+@EqualsAndHashCode
+@Table(name = "BAR")
 public class Bar {
 
     @Id
     @GeneratedValue
-    @Column(name = "bar_id")
+    @Column(name = "id")
     private Integer id;
 
     private String name;
 
     // fetch strategy is eager by default
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(referencedColumnName = "bar_child_id")
+    @OneToOne
+    @JoinColumn(name = "bar_child_id", referencedColumnName = "id")
     private BarChild barChild;
 
-    @OneToMany
-    private Set<Foo> foos;
+//    @OneToMany(mappedBy = "bar")
+//    private List<Foo> foos;
+
 }

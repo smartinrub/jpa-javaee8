@@ -7,24 +7,26 @@ import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
-@Table(name = "FOO_CHILD")
 @Getter
 @Setter
-@EqualsAndHashCode
 @ToString
+@EqualsAndHashCode
+@Table(name = "FOO_CHILD")
 public class FooChild {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "foo_child_id", unique = true, nullable = false)
+    @Column(name = "id", unique = true, nullable = false)
     private Integer id;
 
+    @Column(name = "foo_field")
     @Basic(fetch = FetchType.EAGER)
     private String fooField;
 
-    @ManyToMany
+    @ManyToMany(mappedBy = "fooChildren", fetch = FetchType.EAGER)
     private List<Foo> foos;
 
 }
