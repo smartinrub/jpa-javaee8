@@ -24,17 +24,37 @@ The Java EE application will be deployed in a web server like Glassfish, Payara 
     ```
     asadmin start-domain --verbose domain
     ```
-   
-   >To use Payara server with MySQL you will have to download [Connector/J 5.1.49](https://dev.mysql.com/downloads/connector/j/5.1.html) and place it in `/usr/local/Cellar/payara/5.192/libexec/glassfish/lib`
-   
-3. Go to Payara administration console at `localhost:8080`. The first time it will ask you to set a password for the admin user.                                                                                                             
-4. Build Java EE application:
+
+3. Copy database driver. To use Payara server with MySQL you will have to download [Connector/J 5.1.49](https://dev.mysql.com/downloads/connector/j/5.1.html) and place it in `/usr/local/Cellar/payara/5.192/libexec/glassfish/lib`
+4. Go to Payara administration console at `localhost:8080`. The first time it will ask you to set a password for the admin user.
+5. Configure a JDBC connection pool: Go to "Resources">"JDBC">"JDBC Connection Pools" and click on "New..." Select:
+    - Name: `MySQLPool`
+    - Resource Type: `javax.sql.DataSource`
+    - Datasource Classname: `com.mysql.jdbc.jdbc2.optional.MysqlDataSource`
+    - Add the following "Additional Properties":
+        * `DatabaseName`: `jpa_example`
+        * `UseSSL`: `false`
+        * `Password` `<your_mysql_password>`
+        * `URL`: `jdbc:mysql://:3306/jpa_example`
+        * `Url`: `jdbc:mysql://:3306/jpa_example`
+        * `ServerName`: `localhost`
+        * `PortNumber`: `3306`
+        * `User`: `<your_mysql_user>`
+        
+>The MySQL root user does not work
+
+5. Now you should be able to ping the database.
+6. Add JDBC Resource: Go to "JDBC">"JDBC Resources" and click on "New...":
+    - JNDI Name: Choose the desired JNDI name that will be used by the Java EE application.
+    - Pool Name: `MySQLPool`
+    - Enabled: true                                                 
+7. Build Java EE application:
 
     ```
     mvn clean install
     ```
 
-5. Deploy Java EE application: go to Applications>Deploy... and choose the file 
+8. Deploy Java EE application: go to Applications>Deploy... and choose the file 
   `jpa-javaee8/target/jpa-javaee8.war` to deploy the Java EE application.
  
  >Glassfish version 5.1.0 has a bug in the deployment form (GUI internal error: Archive Path is NULL). 
@@ -47,34 +67,9 @@ The Java EE application will be deployed in a web server like Glassfish, Payara 
  applications/uploadFrame.jsf
  ```
 
-6. Go to the `jpa-javaee8` configuration and change the context root to `/jpa-javaee8`.
-7. Access API:
+9. Go to the `jpa-javaee8` configuration and change the context root to `/jpa-javaee8`.
+10. Access API:
 ```
 http://localhost:8080/jpa-javaee8/jpa
 ```
-   
-### Deployment on WildFly
-
-1. Install WildFly (MacOS):
-
-    ```
-    brew install wildfly-as
-    ```
-   
-   Add to `.bash_profile` or `.zshrc`:
-   
-    ```
-    export JBOSS_HOME=/usr/local/opt/wildfly-as/libexec
-    export PATH=${PATH}:${JBOSS_HOME}/bin
-    ```
-   
-2. Start WildFly:
-
-    ```
-    brew services start wildfly-as
-    ```
-
-3. Go to `localhost:9990`
-4. Build project and deploy beans and client. 
->Remember, WildFly 20 is not compatible with business interface dependency injection, 
->you have to use JNDI lookup instead.
+  
