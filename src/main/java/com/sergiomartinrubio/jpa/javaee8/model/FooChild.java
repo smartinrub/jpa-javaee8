@@ -1,9 +1,7 @@
 package com.sergiomartinrubio.jpa.javaee8.model;
 
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.List;
@@ -12,21 +10,30 @@ import java.util.Objects;
 @Entity
 @Getter
 @Setter
-@ToString
-@EqualsAndHashCode
 @Table(name = "FOO_CHILD")
 public class FooChild {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", unique = true, nullable = false)
-    private Integer id;
+    private Long id;
 
-    @Column(name = "foo_field")
     @Basic(fetch = FetchType.EAGER)
-    private String fooField;
+    private String name;
 
     @ManyToMany(mappedBy = "fooChildren", fetch = FetchType.EAGER)
     private List<Foo> foos;
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        FooChild fooChild = (FooChild) o;
+        return Objects.equals(id, fooChild.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 }

@@ -18,7 +18,7 @@ public class BarChild {
     @Id
     @GeneratedValue
     @Column(name = "id")
-    private Integer id;
+    private Long id;
 
     @OneToOne(mappedBy = "barChild")
     private Bar bar;

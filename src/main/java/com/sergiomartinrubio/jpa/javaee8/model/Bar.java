@@ -20,7 +20,7 @@ public class Bar {
     @Id
     @GeneratedValue
     @Column(name = "id")
-    private Integer id;
+    private Long id;
 
     private String name;
 
@@ -29,7 +29,7 @@ public class Bar {
     @JoinColumn(name = "bar_child_id", referencedColumnName = "id")
     private BarChild barChild;
 
-//    @OneToMany(mappedBy = "bar")
-//    private List<Foo> foos;
+    @OneToMany(mappedBy = "bar")
+    private List<Foo> foos;
 
 }
