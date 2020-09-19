@@ -58,7 +58,12 @@ The Java EE application will be deployed in a web server like Glassfish, Payara 
   `jpa-javaee8/target/jpa-javaee8.war` to deploy the Java EE application.
 9. Go to the `jpa-javaee8` configuration and change the context root to `/jpa-javaee8`.
 10. Access API:
+
 ```
-http://localhost:8080/jpa-javaee8/jpa
+curl http://localhost:8080/jpa-javaee8/foo
+```
+
+```
+curl -X POST http://localhost:8080/jpa-javaee8/foo
 ```
   
