@@ -21,6 +21,7 @@ public class FooChild {
     @Basic(fetch = FetchType.EAGER)
     private String name;
 
+    // lazy fetch strategy by default
     @ManyToMany(mappedBy = "fooChildren", fetch = FetchType.EAGER)
     private List<Foo> foos;
 

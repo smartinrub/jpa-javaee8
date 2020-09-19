@@ -1,6 +1,7 @@
 package com.sergiomartinrubio.jpa.javaee8;
 
 import com.sergiomartinrubio.jpa.javaee8.model.Foo;
+import com.sergiomartinrubio.jpa.javaee8.model.FooChild;
 import com.sergiomartinrubio.jpa.javaee8.repository.FooRepository;
 
 import javax.ejb.EJB;
@@ -22,15 +23,19 @@ public class FooClient extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         try (PrintWriter out = response.getWriter()) {
             List<Foo> foos = fooRepository.findAll();
-            for (Foo foo: foos) {
+            for (Foo foo : foos) {
                 out.println("Foo ID:" + foo.getId());
                 out.println("Foo Name:" + foo.getName());
-//                for (FooChild fooChild : foo.getFooChildren()) {
-//                    out.println("Foo Child ID:" + fooChild.getId());
-//                    out.println("Foo Child Name:" + fooChild.getName());
-//                }
-//                out.println("Bar ID:" + foo.getBar().getId());
-//                out.println("Bar Name:" + foo.getBar().getName());
+                if (foo.getFooChildren() != null) {
+                    for (FooChild fooChild : foo.getFooChildren()) {
+                        out.println("Foo Child ID:" + fooChild.getId());
+                        out.println("Foo Child Name:" + fooChild.getName());
+                    }
+                }
+                if (foo.getBar() != null) {
+                    out.println("Bar ID:" + foo.getBar().getId());
+                    out.println("Bar Name:" + foo.getBar().getName());
+                }
             }
         }
     }

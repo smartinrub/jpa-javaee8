@@ -29,6 +29,7 @@ public class Bar {
     @JoinColumn(name = "bar_child_id", referencedColumnName = "id")
     private BarChild barChild;
 
+    // lazy fetch strategy by default
     @OneToMany(mappedBy = "bar")
     private List<Foo> foos;
 

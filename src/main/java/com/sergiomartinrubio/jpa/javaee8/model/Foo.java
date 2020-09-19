@@ -21,10 +21,12 @@ public class Foo {
 
     private String name;
 
+    // eager fetch strategy by default
     @ManyToOne
     @JoinColumn(name = "bar_id", nullable = false)
     private Bar bar;
 
+    // lazy fetch strategy by default
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "foo_child",
             joinColumns = @JoinColumn(name = "id"),

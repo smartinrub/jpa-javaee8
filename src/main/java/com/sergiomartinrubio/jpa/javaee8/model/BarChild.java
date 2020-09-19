@@ -6,12 +6,12 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 @Getter
 @Setter
 @ToString
-@EqualsAndHashCode
 @Table(name = "BAR_CHILD")
 public class BarChild {
 
@@ -23,4 +23,16 @@ public class BarChild {
     @OneToOne(mappedBy = "barChild")
     private Bar bar;
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        BarChild barChild = (BarChild) o;
+        return Objects.equals(id, barChild.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 }
